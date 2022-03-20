@@ -6,7 +6,7 @@ function Login(){
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [status, setStatus] = React.useState('');
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = React.useState(null);
   const [name, setName] = React.useState('');
   const [user, setUser] = React.useState(null);
   const [storedPwW, setStoredPW] = React.useState(null);
@@ -21,6 +21,8 @@ function Login(){
     return true;
   }
 
+  
+
   const handleLogin = () => {
     let userFound = false;
     if(ctx.users.length === 0) {
@@ -30,8 +32,6 @@ function Login(){
     }
     if(!validate(email, 'email')) return;
     if(!validate(password, 'password')) return;
-    //console.log(ctx.users[0].name);
-    console.log(email);
     for(let i = 0; i<ctx.users.length; i++) {
       console.log(ctx.users[i].email);
       if(ctx.users[i].email === email) {
@@ -42,7 +42,6 @@ function Login(){
           ctx.currentUser[0] = ctx.users[i];
           ctx.loggedIn=true;
           setShow(false);
-          console.log('user: ' + ctx.users[i].name);
         }
         else {
           setStatus('Error: Incorrect email and password combination')
@@ -56,22 +55,22 @@ function Login(){
       setTimeout(() => setStatus(''), 3000);
       return;
     }
-    console.log(user);
   }
 
-  const clearForm = () => {
+  const handleLogOut = () => {
     setShow(true);
     setEmail('');
     setPassword('');
     setName('');
-
+    ctx.currentUser[0] = [];
+    ctx.loggedIn = false;
   }
 
   return(
     <Card style={{width: "18em", display:"block", marginLeft:"auto", marginRight:"auto"}}>
       <Card.Header style={{background:"#599c9c", color:"white"}}>Login</Card.Header>
       <Card.Body style={{background:"#d9e8e8"}}>
-        {show ? (
+        {!ctx.loggedIn ? (
         <>
         Email<br />
         <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.currentTarget.value)} /> <br />
@@ -81,8 +80,8 @@ function Login(){
         </>
       ):(
         <>
-        <h5>User: {name}</h5>
-        <button type="submit" className="btn btn-light" onClick={clearForm}>Login to a different account</button>
+        <h5>Current User: {ctx.currentUser[0].name}</h5>
+        <button type="submit" className="btn btn-light" onClick={handleLogOut}>Log out</button>
         </>
       )}
       <br />

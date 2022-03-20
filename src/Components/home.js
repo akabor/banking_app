@@ -11,8 +11,10 @@ function Home(){
       <Card.Header style={{background: "#7094b8", color:"white"}}>Bank of Amelia</Card.Header>
       <Card.Body style={{background:"#d6e0eb"}}> 
         <Card.Title>Welcome to Bank of Amelia</Card.Title>
-        <Card.Text>You can interact with this banking application. Start by 
-        <Link to="/createaccount/"> creating an account.</Link>
+        <Card.Text>You can interact with this banking application. Start by <space />
+        <Link to="/createaccount/">creating an account</Link>
+        <space /> or <space />
+        <Link to="/login/">logging in</Link>.
         </Card.Text>
         <Card.Img src={BankPicture} style={{width: "50%", display:"block", marginLeft: "auto", marginRight: "auto"}}/>
       </Card.Body>

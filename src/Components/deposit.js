@@ -8,7 +8,7 @@ function Deposit(){
   const [depositAmount, setDepositAmount] = React.useState(0);
   const [disabled, setDisabled] = React.useState(true);
   const [errorMessage, setErrorMessage] = React.useState('');
-  let cardBody = "Please log in to use this feature."
+
 
   function handleChange(e){
     setDepositAmount(e.currentTarget.value);
@@ -34,7 +34,7 @@ function Deposit(){
         {ctx.loggedIn ? (
         <>
         Account Balance: ${ctx.currentUser[0].balance}<br />
-        Deposit: $ <input type="number" min="0" onChange={handleChange}/>
+        Deposit: $ <input type="number" min="0" step="1" pattern="[0-9]" onChange={handleChange}/>
         <br />
         <button type="submit" className="btn btn-light" onClick={handleDeposit} disabled={disabled}>Submit</button> <br/>
         {errorMessage}

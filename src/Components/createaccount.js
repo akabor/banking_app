@@ -36,8 +36,24 @@ function CreateAccount(){
       setTimeout(() => setStatus(''), 3000);
       return;
     }
+    if(!email.includes("@") || !email.includes(".")) {
+      setStatus('Error: Invalid email');
+      setTimeout(() => setStatus(''), 3000);
+      return;
+    }
+
+    if(ctx.users.length>0) {
+      for(let i = 0; i<ctx.users.length; i++){
+        if(email == ctx.users[i].email) {
+          setStatus('Error: An account already exists for this email. Please use a different email or try logging in.')
+          setTimeout(() => setStatus(''), 3000);
+          return;
+        }
+      }
+    }
     ctx.users.push({name,email,password,balance:0.00})
     setShow(false);
+    console.log("Password stored as plain text. Real banking application would use encryption for storage and retreival of user information.")
   }
 
   return(
@@ -53,6 +69,7 @@ function CreateAccount(){
           <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={e => {setEmail(e.currentTarget.value); if(e.currentTarget.value=='') setDisabled(true); if(e.currentTarget.value !== '') setDisabled(false)}} /> <br />
           Password <br />
           <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={e => {setPassword(e.currentTarget.value); if(e.currentTarget.value=='') setDisabled(true); if(e.currentTarget.value !== '') setDisabled(false)}} /> <br />
+          <p style={{fontSize: "70%"}}>*Note: Password stored as plain text - please do not use a real password.</p>
           <button type="submit" className="btn btn-light" disabled={disabled} onClick={handleCreate}>Create Account</button>
           </>
         ):(

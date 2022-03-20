@@ -4,8 +4,19 @@ import UserContext from "./context";
 
 function AllData(){
   const ctx = React.useContext(UserContext);
-  //create a card for each user
   let numUsers = ctx.users.length;
+  
+  const starPassword = (string) => {
+    let stars = "";
+    for(let i = 0; i<string.length; i++) {
+      if(i < string.length - 3) {
+        stars += "*"
+      } else {
+        stars += string[i];
+      }
+    }
+    return stars;
+  }
 
   return (
     <div>
@@ -18,7 +29,7 @@ function AllData(){
             <br />
             Email: {user.email}
             <br />
-            Password: {user.password}
+            Password: {starPassword(user.password)}
             <br />
             Balance: ${user.balance}
 
