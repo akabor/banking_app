@@ -1,4 +1,4 @@
-# <a href="https://mern-stack-bank.herokuapp.com/">Bank of Amelia </a>
+# <a href="https://amelia-kabor-fullstackbank.herokuapp.com/">Bank of Amelia </a>
 
 ## Project Description
 
